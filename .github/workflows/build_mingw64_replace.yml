@@ -1,4 +1,4 @@
-name: Build MINGW64
+name: Build MINGW64 (Replace)
 on:
     # push:
     #   branches: [ main ]
@@ -20,7 +20,7 @@ jobs:
                   C:\msys64\usr\bin\bash -c -l 'pacman -Syu'
                   C:\msys64\usr\bin\bash -c -l 'pacman -S --needed base-devel mingw-w64-x86_64-toolchain --noconfirm'
                   C:\msys64\usr\bin\bash -c -l 'pacman -S autoconf automake libtool --noconfirm'
-            - name: Replace String
+            - name: Replace Horizontal Ellipsis
               run: |
                   C:\msys64\usr\bin\bash -c -l 'cd "$GITHUB_WORKSPACE/mdbtools" && sed -i "s#\\\\\\\\xE2\\\\\\\\x80\\\\\\\\xA6#...#" ./src/libmdb/fakeglib.c'
             - name: Autoconf
