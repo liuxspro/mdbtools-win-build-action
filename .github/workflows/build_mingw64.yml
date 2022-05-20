@@ -1,0 +1,50 @@
+name: Build MINGW64
+on:
+  # push:
+  #   branches: [ main ]
+  #   pull_request:
+  #     branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  build-mdbtools-win:
+    runs-on: windows-latest
+    env:
+      MSYSTEM: MINGW64
+    steps:
+      - name: Clone repository
+        run: |
+          git clone https://github.com/mdbtools/mdbtools.git
+      - name: Setup MINGW64 Build Environment
+        run: |
+          C:\msys64\usr\bin\bash -c -l 'pacman -Syu'
+          C:\msys64\usr\bin\bash -c -l 'pacman -S --needed base-devel mingw-w64-x86_64-toolchain --noconfirm'
+          C:\msys64\usr\bin\bash -c -l 'pacman -S autoconf automake libtool --noconfirm'
+      - name: Autoconf
+        run: |
+          C:\msys64\usr\bin\bash -c -l 'cd "$GITHUB_WORKSPACE/mdbtools" && autoreconf -i -f'
+      - name: Configure
+        run: |
+          C:\msys64\usr\bin\bash -c -l 'cd "$GITHUB_WORKSPACE/mdbtools" && ./configure'
+      - name: Make
+        run: |
+          C:\msys64\usr\bin\bash -c -l 'cd "$GITHUB_WORKSPACE/mdbtools" && make all'
+      - name: Orgnize file
+        run: |
+          mkdir mdbtools-build-win-MINGW64
+          cp ./mdbtools/COPYING* ./mdbtools-build-win-MINGW64/
+          cp ./mdbtools/src/util/.libs/*.exe ./mdbtools-build-win-MINGW64/
+          cp ./mdbtools/src/sql/.libs/*.dll ./mdbtools-build-win-MINGW64/
+          cp ./mdbtools/src/libmdb/.libs/*.dll ./mdbtools-build-win-MINGW64/
+          cp C:/msys64/mingw64/bin/libgcc*.dll ./mdbtools-build-win-MINGW64/
+          cp C:/msys64/mingw64/bin/libiconv*.dll ./mdbtools-build-win-MINGW64/
+          cp C:/msys64/mingw64/bin/libreadline*.dll ./mdbtools-build-win-MINGW64/
+          cp C:/msys64/mingw64/bin/libtermcap*.dll ./mdbtools-build-win-MINGW64/
+          cp C:/msys64/mingw64/bin/libwinpthread*.dll ./mdbtools-build-win-MINGW64/
+          rm ./mdbtools-build-win-MINGW64/libgccjit-0.dll
+          ls ./mdbtools-build-win-MINGW64/
+      - name: Upload a Build Artifact
+        uses: actions/upload-artifact@v3.0.0
+        with:
+          name: "mdbtools-build-win-MINGW64"
+          path: ./mdbtools-build-win-MINGW64/
