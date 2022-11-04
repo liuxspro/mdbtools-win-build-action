@@ -25,7 +25,7 @@ jobs:
           C:\msys64\usr\bin\bash -c -l 'cd "$GITHUB_WORKSPACE/mdbtools" && autoreconf -i -f'
       - name: Configure
         run: |
-          C:\msys64\usr\bin\bash -c -l 'cd "$GITHUB_WORKSPACE/mdbtools" && ./configure'
+          C:\msys64\usr\bin\bash -c -l 'cd "$GITHUB_WORKSPACE/mdbtools" && ./configure --disable-glib'
       - name: Make
         run: |
           C:\msys64\usr\bin\bash -c -l 'cd "$GITHUB_WORKSPACE/mdbtools" && make all'
