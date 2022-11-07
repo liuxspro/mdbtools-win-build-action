@@ -13,7 +13,7 @@ jobs:
         with:
           msystem: UCRT64
           update: true
-          install: git base-devel mingw-w64-x86_64-toolchain autoconf automake libtool 
+          install: git base-devel mingw-w64-x86_64-toolchain autoconf automake libtool mingw-w64-gcc
       - name: CI-Build
         run: |
           echo 'Running in MSYS2!'
