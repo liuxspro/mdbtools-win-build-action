@@ -18,6 +18,7 @@ jobs:
         run: |
           echo 'Running in MSYS2!'
           uname -a
+          gcc -v
           git clone https://github.com/mdbtools/mdbtools.git
           cd mdbtools
           autoreconf -i -f
