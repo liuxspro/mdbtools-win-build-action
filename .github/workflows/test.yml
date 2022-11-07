@@ -17,8 +17,9 @@ jobs:
       - name: CI-Build
         run: |
           echo 'Running in MSYS2!'
+          uname -a
           git clone https://github.com/mdbtools/mdbtools.git
           cd mdbtools
           autoreconf -i -f
-          ./configure
-          make all
+          msys2 -c './configure'          
+          msys2 -c 'make all'
