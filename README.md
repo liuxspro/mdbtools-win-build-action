@@ -17,7 +17,7 @@ And windows build guide: [lsgunth/mdbtools-win](https://github.com/lsgunth/mdbto
 | build_UCRT64.yml        | UCRT64 Build                      | [![Build UCRT64](https://github.com/liuxsdev/mdbtools-win-build-action/actions/workflows/build_UCRT64.yml/badge.svg)](https://github.com/liuxsdev/mdbtools-win-build-action/actions/workflows/build_UCRT64.yml)                        |
 | build_mingw32_tweak.yml | replace `…`(U+2026) MINGW32 Build | [![Build MINGW32 (tweak)](https://github.com/liuxsdev/mdbtools-win-build-action/actions/workflows/build_mingw32_tweak.yml/badge.svg)](https://github.com/liuxsdev/mdbtools-win-build-action/actions/workflows/build_mingw32_tweak.yml) |
 | build_mingw64_tweak.yml | replace `…`(U+2026) MINGW64 Build | [![Build MINGW64 (tweak)](https://github.com/liuxsdev/mdbtools-win-build-action/actions/workflows/build_mingw64_tweak.yml/badge.svg)](https://github.com/liuxsdev/mdbtools-win-build-action/actions/workflows/build_mingw64_tweak.yml) |
-| build_UCRT64_tweak.yml  | replace `…`(U+2026) UCRT64 Build  |                                                                                                                                                                                                                                        |
+| build_UCRT64_tweak.yml  | replace `…`(U+2026) UCRT64 Build  | [![Build UCRT64 (tweak)](https://github.com/liuxsdev/mdbtools-win-build-action/actions/workflows/build_UCRT64_tweak.yml/badge.svg)](https://github.com/liuxsdev/mdbtools-win-build-action/actions/workflows/build_UCRT64_tweak.yml)    |
 
 ## Other
 
