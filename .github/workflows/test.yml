@@ -13,7 +13,7 @@ jobs:
         with:
           msystem: UCRT64
           update: true
-          install: autoconf automake libtool
+          install: base-devel autoconf automake libtool
       - name: CI-Build
         run: |
           echo 'Running in MSYS2!'
