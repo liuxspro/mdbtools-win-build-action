@@ -45,7 +45,7 @@ jobs:
           cp C:/msys64/mingw64/bin/libreadline*.dll ./mdbtools-build-win-MINGW64/
           cp C:/msys64/mingw64/bin/libtermcap*.dll ./mdbtools-build-win-MINGW64/
           cp C:/msys64/mingw64/bin/libwinpthread*.dll ./mdbtools-build-win-MINGW64/
-          rm ./mdbtools-build-win-MINGW64/libgccjit-0.dll
+          # rm ./mdbtools-build-win-MINGW64/libgccjit-0.dll
           ls ./mdbtools-build-win-MINGW64/
       - name: Upload a Build Artifact
         uses: actions/upload-artifact@v3.0.0
