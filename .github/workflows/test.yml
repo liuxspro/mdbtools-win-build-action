@@ -34,7 +34,7 @@ jobs:
           cp ./mdbtools/src/util/.libs/*.exe ./mdbtools-build-win-mingw-w64-ucrt-x86_64/
           cp ./mdbtools/src/sql/.libs/*.dll ./mdbtools-build-win-mingw-w64-ucrt-x86_64/
           cp ./mdbtools/src/libmdb/.libs/*.dll ./mdbtools-build-win-mingw-w64-ucrt-x86_64/
-          cp C:/msys64/ucrt64/bin/lib*.dll ./mdbtools-build-win-mingw-w64-ucrt-x86_64/
+          # cp C:/msys64/ucrt64/bin/lib*.dll ./mdbtools-build-win-mingw-w64-ucrt-x86_64/
           # cp C:/msys64/ucrt64/bin/libgcc*.dll ./mdbtools-build-win-mingw-w64-ucrt-x86_64/
           # cp C:/msys64/ucrt64/bin/libiconv*.dll ./mdbtools-build-win-mingw-w64-ucrt-x86_64/
           # cp C:/msys64/ucrt64/bin/libreadline*.dll ./mdbtools-build-win-mingw-w64-ucrt-x86_64/
