@@ -35,7 +35,7 @@ jobs:
       - name: Orgnize file
         run: |
           mkdir mdbtools-build-win-MINGW64-tweak
-          cp ./mdbtools/COPYING* ./mdbtools-build-win-MINGW64/
+          cp ./mdbtools/COPYING* ./mdbtools-build-win-MINGW64-tweak/
           cp ./mdbtools/src/util/.libs/*.exe ./mdbtools-build-win-MINGW64-tweak/
           cp ./mdbtools/src/sql/.libs/*.dll ./mdbtools-build-win-MINGW64-tweak/
           cp ./mdbtools/src/libmdb/.libs/*.dll ./mdbtools-build-win-MINGW64-tweak/
