@@ -1,9 +1,5 @@
 name: Build MINGW64
 on:
-  # push:
-  #   branches: [ main ]
-  #   pull_request:
-  #     branches: [ main ]
   workflow_dispatch:
 
 jobs:
@@ -15,10 +11,14 @@ jobs:
       - name: Clone repository
         run: |
           git clone https://github.com/mdbtools/mdbtools.git
-      - name: Setup MINGW64 Build Environment
+      - name: Setup MINGW64 Build Environment(using gcc 11.3.0)
         run: |
           C:\msys64\usr\bin\bash -c -l 'pacman -Syu'
-          C:\msys64\usr\bin\bash -c -l 'pacman -S --needed base-devel mingw-w64-x86_64-toolchain --noconfirm'
+          C:\msys64\usr\bin\bash -c -l 'wget https://repo.msys2.org/mingw/mingw64/mingw-w64-x86_64-gcc-11.3.0-1-any.pkg.tar.zst'
+          C:\msys64\usr\bin\bash -c -l 'wget https://repo.msys2.org/mingw/mingw64/mingw-w64-x86_64-gcc-libs-11.3.0-1-any.pkg.tar.zst'
+          C:\msys64\usr\bin\bash -c -l 'wget https://repo.msys2.org/mingw/mingw64/mingw-w64-x86_64-crt-git-10.0.0.r14.ga08c638f8-1-any.pkg.tar.zst'
+          C:\msys64\usr\bin\bash -c -l 'pacman -U mingw-w64-x86_64-gcc-11.3.0-1-any.pkg.tar.zst mingw-w64-x86_64-gcc-libs-11.3.0-1-any.pkg.tar.zst mingw-w64-x86_64-crt-git-10.0.0.r14.ga08c638f8-1-any.pkg.tar.zst --noconfirm'
+          C:\msys64\usr\bin\bash -c -l 'pacman -S --needed base-devel --noconfirm'
           C:\msys64\usr\bin\bash -c -l 'pacman -S autoconf automake libtool --noconfirm'
       - name: Autoconf
         run: |
@@ -41,10 +41,9 @@ jobs:
           cp C:/msys64/mingw64/bin/libreadline*.dll ./mdbtools-build-win-MINGW64/
           cp C:/msys64/mingw64/bin/libtermcap*.dll ./mdbtools-build-win-MINGW64/
           cp C:/msys64/mingw64/bin/libwinpthread*.dll ./mdbtools-build-win-MINGW64/
-          rm ./mdbtools-build-win-MINGW64/libgccjit-0.dll
           ls ./mdbtools-build-win-MINGW64/
       - name: Upload a Build Artifact
         uses: actions/upload-artifact@v3.0.0
         with:
-          name: "mdbtools-build-win-MINGW64"
+          name: 'mdbtools-build-win-MINGW64'
           path: ./mdbtools-build-win-MINGW64/
