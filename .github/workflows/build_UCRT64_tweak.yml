@@ -1,4 +1,4 @@
-name: Build UCRT64
+name: Build UCRT64 (tweak)
 on:
   workflow_dispatch:
 
