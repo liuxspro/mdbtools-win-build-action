@@ -1,4 +1,4 @@
-name: Build MINGW32 (Replace)
+name: Build MINGW32 (tweak)
 on:
   workflow_dispatch:
 
