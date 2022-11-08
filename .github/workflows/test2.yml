@@ -30,7 +30,7 @@ jobs:
         run: |
           mkdir mdbtools-build-win-mingw-w64-ucrt-x86_64
           ls C:/msys64/ucrt64/bin
-          tree
+          tree C:/msys64/
           # cp ./mdbtools/COPYING* ./mdbtools-build-win-mingw-w64-ucrt-x86_64/
           # cp ./mdbtools/src/util/.libs/*.exe ./mdbtools-build-win-mingw-w64-ucrt-x86_64/
           # cp ./mdbtools/src/sql/.libs/*.dll ./mdbtools-build-win-mingw-w64-ucrt-x86_64/
