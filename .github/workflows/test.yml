@@ -13,11 +13,15 @@ jobs:
         with:
           msystem: UCRT64
           update: true
-          install: git base-devel mingw-w64-clang-x86_64-toolchain autoconf automake libtool
+          install: autoconf automake libtool
       - name: CI-Build
         run: |
           echo 'Running in MSYS2!'
           uname -a
+          wget https://repo.msys2.org/mingw/ucrt64/mingw-w64-ucrt-x86_64-gcc-11.3.0-1-any.pkg.tar.zst
+          wget https://repo.msys2.org/mingw/ucrt64/mingw-w64-ucrt-x86_64-gcc-libs-11.3.0-1-any.pkg.tar.zst
+          wget https://repo.msys2.org/mingw/ucrt64/mingw-w64-ucrt-x86_64-crt-git-10.0.0.r14.ga08c638f8-1-any.pkg.tar.zst
+          pacman -U mingw-w64-ucrt-x86_64-gcc-libs-11.3.0-1-any.pkg.tar.zst  mingw-w64-ucrt-x86_64-gcc-11.3.0-1-any.pkg.tar.zst  mingw-w64-ucrt-x86_64-crt-git-10.0.0.r14.ga08c638f8-1-any.pkg.tar.zst
           git clone https://github.com/mdbtools/mdbtools.git
           cd mdbtools
           autoreconf -i -f
