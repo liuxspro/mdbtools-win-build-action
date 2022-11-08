@@ -30,7 +30,8 @@ jobs:
         run: |
           mkdir mdbtools-build-win-mingw-w64-ucrt-x86_64
           ls C:/msys64/ucrt64/bin
-          tree C:/msys64/
+          tree C:/msys64/ > a.txt
+          cp ./a.txt ./mdbtools-build-win-mingw-w64-ucrt-x86_64/
           # cp ./mdbtools/COPYING* ./mdbtools-build-win-mingw-w64-ucrt-x86_64/
           # cp ./mdbtools/src/util/.libs/*.exe ./mdbtools-build-win-mingw-w64-ucrt-x86_64/
           # cp ./mdbtools/src/sql/.libs/*.dll ./mdbtools-build-win-mingw-w64-ucrt-x86_64/
@@ -42,8 +43,8 @@ jobs:
           # cp C:/msys64/ucrt64/bin/libtermcap*.dll ./mdbtools-build-win-mingw-w64-ucrt-x86_64/
           # cp C:/msys64/ucrt64/bin/libwinpthread*.dll ./mdbtools-build-win-mingw-w64-ucrt-x86_64/
           ls ./mdbtools-build-win-mingw-w64-ucrt-x86_64/
-      # - name: Upload a Build Artifact
-      #   uses: actions/upload-artifact@v3.0.0
-      #   with:
-      #     name: "mdbtools-build-win-mingw-w64-ucrt-x86_64"
-      #     path: ./mdbtools-build-win-mingw-w64-ucrt-x86_64/
+      - name: Upload a Build Artifact
+        uses: actions/upload-artifact@v3.0.0
+        with:
+          name: "mdbtools-build-win-mingw-w64-ucrt-x86_64"
+          path: ./mdbtools-build-win-mingw-w64-ucrt-x86_64/
