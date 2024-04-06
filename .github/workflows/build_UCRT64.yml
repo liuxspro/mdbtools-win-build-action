@@ -15,11 +15,11 @@ jobs:
           msystem: UCRT64
           update: true
           install: >-
-            autotools
-            base-devel
-            gcc
-            git
-            glib2-devel
+            mingw-w64-ucrt-x86_64-autotools
+            mingw-w64-ucrt-x86_64-base-devel
+            mingw-w64-ucrt-x86_64-gcc
+            mingw-w64-ucrt-x86_64-git
+            mingw-w64-ucrt-x86_64-glib2-devel
 
       - name: Checkout
         uses: actions/checkout@v4
