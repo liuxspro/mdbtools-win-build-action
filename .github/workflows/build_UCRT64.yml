@@ -5,8 +5,6 @@ on:
 jobs:
   build-mdbtools-win:
     runs-on: windows-latest
-    env:
-      MSYSTEM: UCRT64
     defaults:
       run:
         shell: msys2 {0}
@@ -14,6 +12,7 @@ jobs:
       - name: Setup UCRT64 Build Environment
         uses: msys2/setup-msys2@v2
         with:
+          msystem: UCRT64
           update: true
           install: >-
             autotools
@@ -21,20 +20,17 @@ jobs:
             gcc
             git
             glib2-devel
-            
+
       - name: Clone repository
         run: |
           git clone https://github.com/mdbtools/mdbtools.git
 
       - name: Autoconf
-        run: |
-          C:\msys64\usr\bin\bash -c -l 'cd "$GITHUB_WORKSPACE/mdbtools" && autoreconf -i -f'
+        run: autoreconf -i -f
       - name: Configure
-        run: |
-          C:\msys64\usr\bin\bash -c -l 'cd "$GITHUB_WORKSPACE/mdbtools" && ./configure'
+        run: ./configure
       - name: Make
-        run: |
-          C:\msys64\usr\bin\bash -c -l 'cd "$GITHUB_WORKSPACE/mdbtools" && make all'
+        run: make all
       - name: Orgnize file
         run: |
           mkdir mdbtools-build-win-UCRT64
