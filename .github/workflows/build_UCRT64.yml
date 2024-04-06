@@ -14,9 +14,9 @@ jobs:
       - name: Clone repository
         run: |
           git clone https://github.com/mdbtools/mdbtools.git
-          
+
       - name: Setup UCRT64 Build Environment
-      - uses: msys2/setup-msys2@v2
+        uses: msys2/setup-msys2@v2
         with:
           update: true
           install: >-
