@@ -21,12 +21,14 @@ jobs:
             git
             glib2-devel
 
-      - name: Clone repository
-        run: |
-          git clone https://github.com/mdbtools/mdbtools.git
-
+      - name: Checkout
+        use: actions/checkout@v4
+        with:
+          repository: 'mdbtools/mdbtools'
+      - name: test
+        run: ls
       - name: Autoconf
-        run: cd mdbtools && autoreconf -i -f
+        run: autoreconf -i -f
       - name: Configure
         run: ./configure
       - name: Make
