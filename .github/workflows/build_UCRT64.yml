@@ -26,7 +26,9 @@ jobs:
         with:
           repository: 'mdbtools/mdbtools'
       - name: test
-        run: ls
+        run: |
+          ls
+          gcc -v
       - name: Autoconf
         run: autoreconf -i -f
       - name: Configure
@@ -36,10 +38,10 @@ jobs:
       - name: Orgnize file
         run: |
           mkdir mdbtools-build-win-UCRT64
-          cp ./mdbtools/COPYING* ./mdbtools-build-win-UCRT64/
-          cp ./mdbtools/src/util/.libs/*.exe ./mdbtools-build-win-UCRT64/
-          cp ./mdbtools/src/sql/.libs/*.dll ./mdbtools-build-win-UCRT64/
-          cp ./mdbtools/src/libmdb/.libs/*.dll ./mdbtools-build-win-UCRT64/
+          cp ./COPYING* ./mdbtools-build-win-UCRT64/
+          cp ./src/util/.libs/*.exe ./mdbtools-build-win-UCRT64/
+          cp ./src/sql/.libs/*.dll ./mdbtools-build-win-UCRT64/
+          cp ./src/libmdb/.libs/*.dll ./mdbtools-build-win-UCRT64/
           cp C:/msys64/ucrt64/bin/libgcc*.dll ./mdbtools-build-win-UCRT64/
           cp C:/msys64/ucrt64/bin/libiconv*.dll ./mdbtools-build-win-UCRT64/
           cp C:/msys64/ucrt64/bin/libreadline*.dll ./mdbtools-build-win-UCRT64/
