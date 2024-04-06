@@ -14,10 +14,11 @@ jobs:
       - name: Setup UCRT64 Build Environment (using gcc 11.3.0)
         run: |
           C:\msys64\usr\bin\bash -c -l 'pacman -Syu'
-          C:\msys64\usr\bin\bash -c -l 'wget https://repo.msys2.org/mingw/ucrt64/mingw-w64-ucrt-x86_64-gcc-11.3.0-1-any.pkg.tar.zst'
-          C:\msys64\usr\bin\bash -c -l 'wget https://repo.msys2.org/mingw/ucrt64/mingw-w64-ucrt-x86_64-gcc-libs-11.3.0-1-any.pkg.tar.zst'
-          C:\msys64\usr\bin\bash -c -l 'wget https://repo.msys2.org/mingw/ucrt64/mingw-w64-ucrt-x86_64-crt-git-10.0.0.r14.ga08c638f8-1-any.pkg.tar.zst'
-          C:\msys64\usr\bin\bash -c -l 'pacman -U mingw-w64-ucrt-x86_64-gcc-11.3.0-1-any.pkg.tar.zst mingw-w64-ucrt-x86_64-gcc-libs-11.3.0-1-any.pkg.tar.zst mingw-w64-ucrt-x86_64-crt-git-10.0.0.r14.ga08c638f8-1-any.pkg.tar.zst --noconfirm'
+          # C:\msys64\usr\bin\bash -c -l 'wget https://repo.msys2.org/mingw/ucrt64/mingw-w64-ucrt-x86_64-gcc-11.3.0-1-any.pkg.tar.zst'
+          # C:\msys64\usr\bin\bash -c -l 'wget https://repo.msys2.org/mingw/ucrt64/mingw-w64-ucrt-x86_64-gcc-libs-11.3.0-1-any.pkg.tar.zst'
+          # C:\msys64\usr\bin\bash -c -l 'wget https://repo.msys2.org/mingw/ucrt64/mingw-w64-ucrt-x86_64-crt-git-10.0.0.r14.ga08c638f8-1-any.pkg.tar.zst'
+          # C:\msys64\usr\bin\bash -c -l 'pacman -U mingw-w64-ucrt-x86_64-gcc-11.3.0-1-any.pkg.tar.zst mingw-w64-ucrt-x86_64-gcc-libs-11.3.0-1-any.pkg.tar.zst mingw-w64-ucrt-x86_64-crt-git-10.0.0.r14.ga08c638f8-1-any.pkg.tar.zst --noconfirm'
+          C:\msys64\usr\bin\bash -c -l 'pacman -S --needed git mingw-w64-ucrt-x86_64-gcc mingw-w64-x86_64-toolchain --noconfirm'
           C:\msys64\usr\bin\bash -c -l 'pacman -S --needed base-devel --noconfirm'
           C:\msys64\usr\bin\bash -c -l 'pacman -S autoconf automake libtool --noconfirm'
       - name: Autoconf
