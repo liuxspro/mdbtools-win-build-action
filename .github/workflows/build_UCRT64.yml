@@ -22,7 +22,7 @@ jobs:
             glib2-devel
 
       - name: Checkout
-        use: actions/checkout@v4
+        uses: actions/checkout@v4
         with:
           repository: 'mdbtools/mdbtools'
       - name: test
