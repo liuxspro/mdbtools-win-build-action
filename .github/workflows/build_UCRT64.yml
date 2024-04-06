@@ -26,7 +26,7 @@ jobs:
           git clone https://github.com/mdbtools/mdbtools.git
 
       - name: Autoconf
-        run: autoreconf -i -f
+        run: cd mdbtools && autoreconf -i -f
       - name: Configure
         run: ./configure
       - name: Make
