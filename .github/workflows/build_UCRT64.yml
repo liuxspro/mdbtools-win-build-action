@@ -11,10 +11,6 @@ jobs:
       run:
         shell: msys2 {0}
     steps:
-      - name: Clone repository
-        run: |
-          git clone https://github.com/mdbtools/mdbtools.git
-
       - name: Setup UCRT64 Build Environment
         uses: msys2/setup-msys2@v2
         with:
@@ -25,6 +21,11 @@ jobs:
             gcc
             git
             glib2-devel
+            
+      - name: Clone repository
+        run: |
+          git clone https://github.com/mdbtools/mdbtools.git
+
       - name: Autoconf
         run: |
           C:\msys64\usr\bin\bash -c -l 'cd "$GITHUB_WORKSPACE/mdbtools" && autoreconf -i -f'
