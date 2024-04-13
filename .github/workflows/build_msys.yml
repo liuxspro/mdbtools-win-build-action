@@ -1,0 +1,55 @@
+name: Build MSYS
+on:
+  workflow_dispatch:
+
+jobs:
+  build-mdbtools-win:
+    runs-on: windows-latest
+    defaults:
+      run:
+        shell: msys2 {0}
+    steps:
+      - name: Setup UCRT64 Build Environment
+        uses: msys2/setup-msys2@v2
+        with:
+          msystem: MSYS
+          update: true
+          install: >-
+            autotools
+            base-devel
+            gcc
+            git
+            glib2-devel
+
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          repository: 'mdbtools/mdbtools'
+      - name: Autoconf
+        run: autoreconf -i -f
+      - name: Configure
+        run: ./configure
+      - name: Make
+        run: make all
+      - name: Test
+        run: |
+          ./src/util/mdb-export.exe
+      - name: Orgnize file
+        run: |
+          mkdir mdbtools-build-win-MSYS
+          cp ./COPYING* ./mdbtools-build-win-MSYS/
+          cp ./src/util/*.exe ./mdbtools-build-win-MSYS/
+          # Copy DLL Files
+          cp C:/msys64/usr/bin/msys-2.0.dll ./mdbtools-build-win-MSYS/
+          cp C:/msys64/usr/bin/msys-glib-2.0-0.dll ./mdbtools-build-win-MSYS/
+          cp C:/msys64/usr/bin/msys-iconv-2.dll ./mdbtools-build-win-MSYS/
+          cp C:/msys64/usr/bin/msys-pcre2-8-0.dll ./mdbtools-build-win-MSYS/
+          cp C:/msys64/usr/bin/msys-intl-8.dll ./mdbtools-build-win-MSYS/
+          cp C:/msys64/usr/bin/msys-gcc_s-seh-1.dll ./mdbtools-build-win-MSYS/
+          ls ./mdbtools-build-win-MSYS/
+
+      - name: Upload a Build Artifact
+        uses: actions/upload-artifact@v3.0.0
+        with:
+          name: 'mdbtools-build-win-MSYS'
+          path: ./mdbtools-build-win-MSYS/
