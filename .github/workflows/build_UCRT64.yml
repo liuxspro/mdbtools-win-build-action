@@ -15,9 +15,9 @@ jobs:
           msystem: UCRT64
           update: true
           install: >-
-            mingw-w64-ucrt-x86_64-autotools
+            autotools
             base-devel
-            mingw-w64-ucrt-x86_64-gcc
+            gcc
             git
             glib2-devel
 
