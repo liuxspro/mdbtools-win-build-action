@@ -22,6 +22,7 @@ jobs:
             glib2-devel
             git
 
+      - run: git config --global core.autocrlf input
       - name: Checkout
         uses: actions/checkout@v4
 
