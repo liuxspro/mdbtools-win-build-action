@@ -34,6 +34,8 @@ jobs:
       - name: Test
         run: |
           ./src/util/mdb-export.exe --version
+          ldd mdb-export.exe
+          ls /usr/bin/*.dll
       - name: Orgnize file
         run: |
           mkdir mdbtools-build-win-MSYS
