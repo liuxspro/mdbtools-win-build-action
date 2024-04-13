@@ -45,7 +45,7 @@ jobs:
         run: |
           cd mdbtools
           # git apply ../patch_file.patch -v  # Why this not work?
-          cp ../fakeglibc.c ./src/libmdb/fakeglibc.c
+          cp ../fakeglib.c ./src/libmdb/fakeglib.c
 
       - name: Autoconf
         run: autoreconf -i -f
