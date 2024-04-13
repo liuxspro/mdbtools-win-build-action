@@ -48,7 +48,9 @@ jobs:
           cp ../fakeglib.c ./src/libmdb/fakeglib.c
 
       - name: Autoconf
-        run: autoreconf -i -f
+        run: |
+          pwd
+          autoreconf -i -f
 
       - name: Configure
         run: ./configure
