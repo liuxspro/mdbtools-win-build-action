@@ -20,6 +20,7 @@ jobs:
             libtool
             base-devel
             glib2-devel
+            git
 
       - name: Checkout
         uses: actions/checkout@v4
