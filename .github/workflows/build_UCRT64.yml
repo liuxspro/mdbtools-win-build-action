@@ -34,22 +34,26 @@ jobs:
         run: autoreconf -i -f
       - name: Configure
         run: ./configure
-      - name: Make
-        run: make all
+      # - name: Make
+      #   run: make all
       - name: Orgnize file
         run: |
-          tree C:/msys64/ -L 2
-          mkdir mdbtools-build-win-UCRT64
-          cp ./COPYING* ./mdbtools-build-win-UCRT64/
-          cp ./src/util/.libs/*.exe ./mdbtools-build-win-UCRT64/
-          cp ./src/sql/.libs/*.dll ./mdbtools-build-win-UCRT64/
-          cp ./src/libmdb/.libs/*.dll ./mdbtools-build-win-UCRT64/
-          cp C:/msys64/ucrt64/bin/libgcc*.dll ./mdbtools-build-win-UCRT64/
-          cp C:/msys64/ucrt64/bin/libiconv*.dll ./mdbtools-build-win-UCRT64/
-          cp C:/msys64/ucrt64/bin/libreadline*.dll ./mdbtools-build-win-UCRT64/
-          cp C:/msys64/ucrt64/bin/libtermcap*.dll ./mdbtools-build-win-UCRT64/
-          cp C:/msys64/ucrt64/bin/libwinpthread*.dll ./mdbtools-build-win-UCRT64/
-          ls ./mdbtools-build-win-UCRT64/
+          tree C:/msys64/clang64 -L 2
+          tree C:/msys64/clang32 -L 2
+          tree C:/msys64/mingw32 -L 2
+          tree C:/msys64/mingw64 -L 2
+          tree C:/msys64/ucrt64 -L 2
+          # mkdir mdbtools-build-win-UCRT64
+          # cp ./COPYING* ./mdbtools-build-win-UCRT64/
+          # cp ./src/util/.libs/*.exe ./mdbtools-build-win-UCRT64/
+          # cp ./src/sql/.libs/*.dll ./mdbtools-build-win-UCRT64/
+          # cp ./src/libmdb/.libs/*.dll ./mdbtools-build-win-UCRT64/
+          # cp C:/msys64/ucrt64/bin/libgcc*.dll ./mdbtools-build-win-UCRT64/
+          # cp C:/msys64/ucrt64/bin/libiconv*.dll ./mdbtools-build-win-UCRT64/
+          # cp C:/msys64/ucrt64/bin/libreadline*.dll ./mdbtools-build-win-UCRT64/
+          # cp C:/msys64/ucrt64/bin/libtermcap*.dll ./mdbtools-build-win-UCRT64/
+          # cp C:/msys64/ucrt64/bin/libwinpthread*.dll ./mdbtools-build-win-UCRT64/
+          # ls ./mdbtools-build-win-UCRT64/
 
       - name: Upload a Build Artifact
         uses: actions/upload-artifact@v3.0.0
