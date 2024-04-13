@@ -41,6 +41,8 @@ jobs:
       - name: Apply Patch
         run: |
           cd mdbtools
+          ls
+          pwd
           git apply ../patch_file.patch -v
 
       - name: Autoconf
