@@ -37,6 +37,7 @@ jobs:
         run: make all
       - name: Orgnize file
         run: |
+          tree C:/msys64/
           mkdir mdbtools-build-win-UCRT64
           cp ./COPYING* ./mdbtools-build-win-UCRT64/
           cp ./src/util/.libs/*.exe ./mdbtools-build-win-UCRT64/
@@ -48,7 +49,7 @@ jobs:
           cp C:/msys64/ucrt64/bin/libtermcap*.dll ./mdbtools-build-win-UCRT64/
           cp C:/msys64/ucrt64/bin/libwinpthread*.dll ./mdbtools-build-win-UCRT64/
           ls ./mdbtools-build-win-UCRT64/
-          tree C:/msys64/
+
       - name: Upload a Build Artifact
         uses: actions/upload-artifact@v3.0.0
         with:
