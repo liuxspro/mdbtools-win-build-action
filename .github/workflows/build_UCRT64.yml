@@ -35,6 +35,10 @@ jobs:
         run: ./configure
       - name: Make
         run: make all
+      - name: test2
+        run: |
+          ./src/util/.libs/mdb-export.exe
+          ldd ./src/util/.libs/mdb-export.exe
       - name: Orgnize file
         run: |
           mkdir mdbtools-build-win-UCRT64
