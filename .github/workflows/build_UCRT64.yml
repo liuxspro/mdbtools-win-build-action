@@ -48,16 +48,17 @@ jobs:
           cp ../fakeglib.c ./src/libmdb/fakeglib.c
 
       - name: Autoconf
-        run: |
-          pwd
-          autoreconf -i -f
+        # 当前目录/d/a/mdbtools-win-build-action/mdbtools-win-build-action  又回到上一级目录了
+        run: cd mdbtools && autoreconf -i -f
 
       - name: Configure
-        run: ./configure
+        run: cd mdbtools && ./configure
 
       - name: Make
-        run: make all
+        run: cd mdbtools && make all
+
       - name: Test
         run: |
+          cd mdbtools
           ./src/util/mdb-export.exe --version
           ldd ./src/util/mdb-export.exe
