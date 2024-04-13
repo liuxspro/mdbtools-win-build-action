@@ -33,7 +33,7 @@ jobs:
         run: make all
       - name: Test
         run: |
-          ./src/util/mdb-export.exe
+          ./src/util/mdb-export.exe --version
       - name: Orgnize file
         run: |
           mkdir mdbtools-build-win-MSYS
