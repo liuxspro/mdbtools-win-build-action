@@ -15,6 +15,7 @@ jobs:
           msystem: UCRT64
           update: true
           install: >-
+            tree
             autotools
             base-devel
             gcc
