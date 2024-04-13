@@ -29,7 +29,7 @@ jobs:
         run: |
           pacman -U ./gcc/mingw-w64-ucrt-x86_64-gcc-11.3.0-1-any.pkg.tar.zst ./gcc/mingw-w64-ucrt-x86_64-gcc-libs-11.3.0-1-any.pkg.tar.zst ./gcc/mingw-w64-ucrt-x86_64-crt-git-10.0.0.r14.ga08c638f8-1-any.pkg.tar.zst --noconfirm
 
-      - name: Clone repository
+      - name: Clone Mdbtools
         run: git clone https://github.com/mdbtools/mdbtools.git
 
       - name: Debug
@@ -37,3 +37,21 @@ jobs:
           gcc -v
           ls
           pwd
+
+      - name: Apply Patch
+        run: |
+          cd mdbtools
+          git apply ../mdbtools-win-build-action/patch_file.patch
+
+      - name: Autoconf
+        run: autoreconf -i -f
+
+      - name: Configure
+        run: ./configure
+
+      - name: Make
+        run: make all
+      - name: Test
+        run: |
+          ./src/util/mdb-export.exe --version
+          ldd ./src/util/mdb-export.exe
