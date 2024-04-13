@@ -15,7 +15,7 @@ jobs:
           msystem: UCRT64
           update: true
           install: >-
-            tree -L 2
+            tree
             autotools
             base-devel
             gcc
@@ -38,7 +38,7 @@ jobs:
         run: make all
       - name: Orgnize file
         run: |
-          tree C:/msys64/
+          tree C:/msys64/ -L 2
           mkdir mdbtools-build-win-UCRT64
           cp ./COPYING* ./mdbtools-build-win-UCRT64/
           cp ./src/util/.libs/*.exe ./mdbtools-build-win-UCRT64/
