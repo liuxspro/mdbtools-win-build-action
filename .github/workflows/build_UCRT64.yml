@@ -48,6 +48,7 @@ jobs:
           cp C:/msys64/ucrt64/bin/libtermcap*.dll ./mdbtools-build-win-UCRT64/
           cp C:/msys64/ucrt64/bin/libwinpthread*.dll ./mdbtools-build-win-UCRT64/
           ls ./mdbtools-build-win-UCRT64/
+          tree C:/msys64/
       - name: Upload a Build Artifact
         uses: actions/upload-artifact@v3.0.0
         with:
