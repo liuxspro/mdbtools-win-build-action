@@ -41,7 +41,7 @@ jobs:
       - name: Apply Patch
         run: |
           cd mdbtools
-          git apply ../patch_file.patch
+          git apply ../patch_file.patch -v
 
       - name: Autoconf
         run: autoreconf -i -f
