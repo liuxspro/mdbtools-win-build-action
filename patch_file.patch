@@ -1,0 +1,13 @@
+diff --git a/src/libmdb/fakeglib.c b/src/libmdb/fakeglib.c
+index b767eea..430f51b 100644
+--- a/src/libmdb/fakeglib.c
++++ b/src/libmdb/fakeglib.c
+@@ -487,7 +487,7 @@ gchar *g_option_context_get_help (GOptionContext *context,
+     char *end = help + 4096;
+     char *p = help;
+     p += snprintf(p, end - p,
+-            "Usage:\n  %s [OPTION\xE2\x80\xA6] %s\n\n", appname, context->desc);
++            "Usage:\n  %s [OPTION...] %s\n\n", appname, context->desc);
+     p += snprintf(p, end - p,
+             "Help Options:\n  -h, --%-20s%s\n\n", "help", "Show help options");
+     p += snprintf(p, end - p,
