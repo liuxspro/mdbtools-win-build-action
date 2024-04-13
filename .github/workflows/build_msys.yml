@@ -40,12 +40,12 @@ jobs:
           cp ./COPYING* ./mdbtools-build-win-MSYS/
           cp ./src/util/*.exe ./mdbtools-build-win-MSYS/
           # Copy DLL Files
-          cp C:/msys64/usr/bin/msys-2.0.dll ./mdbtools-build-win-MSYS/
-          cp C:/msys64/usr/bin/msys-glib-2.0-0.dll ./mdbtools-build-win-MSYS/
-          cp C:/msys64/usr/bin/msys-iconv-2.dll ./mdbtools-build-win-MSYS/
-          cp C:/msys64/usr/bin/msys-pcre2-8-0.dll ./mdbtools-build-win-MSYS/
-          cp C:/msys64/usr/bin/msys-intl-8.dll ./mdbtools-build-win-MSYS/
-          cp C:/msys64/usr/bin/msys-gcc_s-seh-1.dll ./mdbtools-build-win-MSYS/
+          cp /usr/bin/msys-2.0.dll ./mdbtools-build-win-MSYS/
+          cp /usr/bin/msys-glib-2.0-0.dll ./mdbtools-build-win-MSYS/
+          cp /usr/bin/msys-iconv-2.dll ./mdbtools-build-win-MSYS/
+          cp /usr/bin/msys-pcre2-8-0.dll ./mdbtools-build-win-MSYS/
+          cp /usr/bin/msys-intl-8.dll ./mdbtools-build-win-MSYS/
+          cp /usr/bin/msys-gcc_s-seh-1.dll ./mdbtools-build-win-MSYS/
           ls ./mdbtools-build-win-MSYS/
 
       - name: Upload a Build Artifact
