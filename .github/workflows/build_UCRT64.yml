@@ -68,13 +68,13 @@ jobs:
           cp ./mdbtools/src/libmdb/.libs/*.dll ./mdbtools-build-win-ucrt64/
 
           cp C:/msys64/ucrt64/bin/libgcc*.dll ./mdbtools-build-win-ucrt64/
-          cp C:/msys64/ucrt64/bin/libiconv*.dll ./mdbtools-build-win-ucrt64/
-          cp C:/msys64/ucrt64/bin/libreadline*.dll ./mdbtools-build-win-ucrt64/
-          cp C:/msys64/ucrt64/bin/libtermcap*.dll ./mdbtools-build-win-ucrt64/
+          # cp C:/msys64/ucrt64/bin/libiconv*.dll ./mdbtools-build-win-ucrt64/
+          # cp C:/msys64/ucrt64/bin/libreadline*.dll ./mdbtools-build-win-ucrt64/
+          # cp C:/msys64/ucrt64/bin/libtermcap*.dll ./mdbtools-build-win-ucrt64/
           cp C:/msys64/ucrt64/bin/libwinpthread*.dll ./mdbtools-build-win-ucrt64/
-          cp C:/msys64/ucrt64/bin/libglib*.dll ./mdbtools-build-win-ucrt64/
+          # cp C:/msys64/ucrt64/bin/libglib*.dll ./mdbtools-build-win-ucrt64/
           cp C:/msys64/ucrt64/bin/libintl*.dll ./mdbtools-build-win-ucrt64/
-          cp C:/msys64/ucrt64/bin/libpcre2*.dll ./mdbtools-build-win-ucrt64/
+          # cp C:/msys64/ucrt64/bin/libpcre2-8*.dll ./mdbtools-build-win-ucrt64/
           ls ./mdbtools-build-win-ucrt64/
 
       - name: Upload a Build Artifact
