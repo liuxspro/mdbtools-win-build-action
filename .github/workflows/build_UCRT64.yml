@@ -28,6 +28,7 @@ jobs:
             autoconf
             automake
             libtool
+            base-devel
             mingw-w64-ucrt-x86_64-gcc
             mingw-w64-ucrt-x86_64-glib2
 
