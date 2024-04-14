@@ -5,17 +5,7 @@ on:
 jobs:
   build-mdbtools-win:
     runs-on: windows-latest
-    defaults:
-      run:
-        shell: msys2 {0}
     steps:
-      - name: Setup MSYS2 UCRT64
-        uses: msys2/setup-msys2@v2
-        with:
-          msystem: UCRT64
-          update: true
-          install: git
-
       - name: Checkout
         uses: actions/checkout@v4
 
