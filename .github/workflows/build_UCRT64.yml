@@ -15,37 +15,24 @@ jobs:
           msystem: UCRT64
           update: true
           install: >-
-            autoconf
-            automake
-            libtool
+            mingw-w64-ucrt-x86_64-autotools
+            mingw-w64-ucrt-x86_64-gcc
             base-devel
             glib2-devel
             git
 
-      - run: git config --global core.autocrlf input
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Install gcc
-        run: |
-          pacman -U ./gcc/mingw-w64-ucrt-x86_64-gcc-11.3.0-1-any.pkg.tar.zst ./gcc/mingw-w64-ucrt-x86_64-gcc-libs-11.3.0-1-any.pkg.tar.zst ./gcc/mingw-w64-ucrt-x86_64-crt-git-10.0.0.r14.ga08c638f8-1-any.pkg.tar.zst --noconfirm
-
       - name: Clone Mdbtools
         run: |
-          git config --global core.autocrlf input
-          git clone https://github.com/mdbtools/mdbtools.git
+          git clone -b v1.0.0 --single-branch https://github.com/mdbtools/mdbtools.git
 
       - name: Debug
         run: |
           gcc -v
           ls
           pwd
-
-      - name: Apply Patch
-        run: |
-          cd mdbtools
-          # git apply ../patch_file.patch -v  # Why this not work?
-          cp ../fakeglib.c ./src/libmdb/fakeglib.c
 
       - name: Autoconf
         # 当前目录/d/a/mdbtools-win-build-action/mdbtools-win-build-action  又回到上一级目录了
