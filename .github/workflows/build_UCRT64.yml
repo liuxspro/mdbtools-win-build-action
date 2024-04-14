@@ -28,7 +28,8 @@ jobs:
             autoconf
             automake
             libtool
-            mingw-w64-ucrt-x86_64-toolchain
+            mingw-w64-ucrt-x86_64-gcc
+            mingw-w64-ucrt-x86_64-glib2
 
       - name: Debug
         shell: msys2 {0}
