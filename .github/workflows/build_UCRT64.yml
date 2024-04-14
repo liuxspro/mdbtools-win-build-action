@@ -5,9 +5,6 @@ on:
 jobs:
   build-mdbtools-win:
     runs-on: windows-latest
-    strategy:
-      matrix:
-        patch: [true, false]
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -55,6 +52,12 @@ jobs:
       - name: Make
         shell: msys2 {0}
         run: cd mdbtools && make all
+
+      - name: Debug
+        shell: msys2 {0}
+        run: |
+          sed -n '490p' ./mdbtools/src/libmdb/fakeglib.c
+          ./mdbtools/src/util/mdb-export.exe --help
 
       - name: Orgnize file
         run: |
