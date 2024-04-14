@@ -5,10 +5,20 @@ on:
 jobs:
   build-mdbtools-win:
     runs-on: windows-latest
-    defaults:
-      run:
-        shell: msys2 {0}
     steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Clone Mdbtools
+        run: |
+          git clone --depth=1 https://github.com/mdbtools/mdbtools.git
+
+      - name: Patch
+        run: |
+          cd mdbtools
+          git apply ../patch_file.patch
+          git apply ../patch_configure.patch
+
       - name: Setup MSYS2 UCRT64
         uses: msys2/setup-msys2@v2
         with:
@@ -20,14 +30,8 @@ jobs:
             libtool
             mingw-w64-ucrt-x86_64-toolchain
 
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Clone Mdbtools
-        run: |
-          git clone -b v1.0.0 --single-branch https://github.com/mdbtools/mdbtools.git
-
       - name: Debug
+        shell: msys2 {0}
         run: |
           gcc -v
           ls

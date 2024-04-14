@@ -1,0 +1,13 @@
+diff --git a/configure.ac b/configure.ac
+index 1383545..cb52cca 100644
+--- a/configure.ac
++++ b/configure.ac
+@@ -86,7 +86,7 @@ AC_SUBST(LFLAGS)
+ CFLAGS="$CFLAGS -Wall -Werror"
+ LOCALE_T=locale_t
+ AS_CASE([$host],
+-        [*mingw*], [LDFLAGS="$LDFLAGS -no-undefined" CFLAGS="$CFLAGS -D_spawnv=spawnv"], [])
++        [*mingw*], [LDFLAGS="$LDFLAGS -no-undefined" LOCALE_T=_locale_t], [])
+ AC_SUBST(LOCALE_T)
+ 
+ dnl See if iconv is present and wanted
