@@ -68,7 +68,7 @@ jobs:
           cp C:/msys64/ucrt64/bin/libglib*.dll ./mdbtools-build-win-ucrt64/
           cp C:/msys64/ucrt64/bin/libintl*.dll ./mdbtools-build-win-ucrt64/
           cp C:/msys64/ucrt64/bin/libpcre2*.dll ./mdbtools-build-win-ucrt64/
-          ls ./mdbtools-build-win-MINGW32-tweak/
+          ls ./mdbtools-build-win-ucrt64/
 
       - name: Upload a Build Artifact
         uses: actions/upload-artifact@v4
