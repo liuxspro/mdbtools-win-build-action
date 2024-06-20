@@ -74,7 +74,7 @@ jobs:
           cp C:/msys64/${{matrix.sys}}/bin/libgcc*.dll ./mdbtools-build-win-${{matrix.sys}}/
           cp C:/msys64/${{matrix.sys}}/bin/libwinpthread*.dll ./mdbtools-build-win-${{matrix.sys}}/
 
-          ls ./mdbtools-build-win-ucrt64/
+          ls ./mdbtools-build-win-${{matrix.sys}}/
 
       - name: Upload a Build Artifact
         uses: actions/upload-artifact@v4
