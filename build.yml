@@ -1,0 +1,83 @@
+name: Build
+on:
+  workflow_dispatch:
+
+jobs:
+  build-mdbtools-win:
+    runs-on: windows-latest
+    strategy:
+      matrix:
+        sys:
+          - mingw64
+          - ucrt64
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Clone Mdbtools
+        run: |
+          git clone --depth=1 https://github.com/mdbtools/mdbtools.git
+
+      - name: Patch
+        run: |
+          cd mdbtools
+          git apply ../patch_file.patch
+          git apply ../patch_configure.patch
+
+      - name: Setup MSYS2 
+        uses: msys2/setup-msys2@v2
+        with:
+          msystem: ${{matrix.sys}}
+          release: false
+          update: true
+          install: >-
+            autoconf
+            automake
+            libtool
+            base-devel
+          pacboy: >-
+            gcc:p
+            glib2:p
+      - name: Debug
+        shell: msys2 {0}
+        run: |
+          gcc -v
+          sed -n '490p' ./mdbtools/src/libmdb/fakeglib.c
+          pwd
+
+      - name: Autoconf
+        shell: msys2 {0}
+        run: cd mdbtools && autoreconf -i -f
+
+      - name: Configure
+        shell: msys2 {0}
+        run: cd mdbtools && ./configure --disable-glib
+
+      - name: Make
+        shell: msys2 {0}
+        run: cd mdbtools && make all
+
+      - name: Debug
+        shell: msys2 {0}
+        run: |
+          sed -n '490p' ./mdbtools/src/libmdb/fakeglib.c
+          ./mdbtools/src/util/mdb-export.exe --help
+
+      - name: Orgnize file
+        run: |
+          mkdir mdbtools-build-win-${{matrix.sys}}
+          cp ./mdbtools/COPYING* ./mdbtools-build-win-${{matrix.sys}}/
+          cp ./mdbtools/src/util/.libs/*.exe ./mdbtools-build-win-${{matrix.sys}}/
+          cp ./mdbtools/src/sql/.libs/*.dll ./mdbtools-build-win-${{matrix.sys}}/
+          cp ./mdbtools/src/libmdb/.libs/*.dll ./mdbtools-build-win-${{matrix.sys}}/
+
+          cp C:/msys64/${{matrix.sys}}/bin/libgcc*.dll ./mdbtools-build-win-${{matrix.sys}}/
+          cp C:/msys64/${{matrix.sys}}/bin/libwinpthread*.dll ./mdbtools-build-win-${{matrix.sys}}/
+
+          ls ./mdbtools-build-win-ucrt64/
+
+      - name: Upload a Build Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: "mdbtools-build-win-ucrt64"
+          path: ./mdbtools-build-win-${{matrix.sys}}/
