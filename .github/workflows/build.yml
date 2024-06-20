@@ -79,5 +79,5 @@ jobs:
       - name: Upload a Build Artifact
         uses: actions/upload-artifact@v4
         with:
-          name: "mdbtools-build-win-ucrt64"
+          name: "mdbtools-build-win-${{matrix.sys}}"
           path: ./mdbtools-build-win-${{matrix.sys}}/
