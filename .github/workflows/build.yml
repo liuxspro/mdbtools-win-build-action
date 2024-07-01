@@ -6,6 +6,7 @@ jobs:
   build-mdbtools-win:
     runs-on: windows-latest
     strategy:
+      fail-fast: false
       matrix:
         sys:
           - clang64
