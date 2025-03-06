@@ -37,6 +37,7 @@ jobs:
             libtool
             base-devel
           pacboy: >-
+            pkg-config:p
             gcc:p
             glib2:p
       - name: Debug
