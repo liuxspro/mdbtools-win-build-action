@@ -12,7 +12,7 @@ And windows build guide: [lsgunth/mdbtools-win](https://github.com/lsgunth/mdbto
 
 | Name             | Discription  | Build Artifacts                                              |
 | ---------------- | ------------ | ------------------------------------------------------------ |
-| build_UCRT64.yml | UCRT64 Build | [![Build UCRT64](https://github.com/liuxsdev/mdbtools-win-build-action/actions/workflows/build_UCRT64.yml/badge.svg)](https://github.com/liuxsdev/mdbtools-win-build-action/actions/workflows/build_UCRT64.yml) |
+| build.yml | UCRT64 Build | [![Build UCRT64](https://github.com/liuxspro/mdbtools-win-build-action/actions/workflows/build.yml/badge.svg)](https://github.com/liuxspro/mdbtools-win-build-action/actions/workflows/build.yml) |
 
 ## Test
 
