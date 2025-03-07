@@ -53,7 +53,7 @@ jobs:
 
       - name: Configure
         shell: msys2 {0}
-        run: cd mdbtools && ./configure --disable-glib LDFLAGS="-static -mthreads"
+        run: cd mdbtools && ./configure --disable-glib LDFLAGS="-static -Wl,-Bstatic -lpthread"
 
       - name: Make
         shell: msys2 {0}
@@ -68,15 +68,15 @@ jobs:
       - name: Orgnize file
         run: |
           mkdir mdbtools-build-win-${{matrix.sys}}
-          cp ./mdbtools/COPYING* ./mdbtools-build-win-${{matrix.sys}}/
-          cp ./mdbtools/src/util/.libs/*.exe ./mdbtools-build-win-${{matrix.sys}}/
-          cp ./mdbtools/src/sql/.libs/*.dll ./mdbtools-build-win-${{matrix.sys}}/
-          cp ./mdbtools/src/libmdb/.libs/*.dll ./mdbtools-build-win-${{matrix.sys}}/
-          mkdir mdbtools-build-win-${{matrix.sys}}/static
-          cp ./mdbtools/src/util/*.exe mdbtools-build-win-${{matrix.sys}}/static/
+          # cp ./mdbtools/COPYING* ./mdbtools-build-win-${{matrix.sys}}/
+          # cp ./mdbtools/src/util/.libs/*.exe ./mdbtools-build-win-${{matrix.sys}}/
+          # cp ./mdbtools/src/sql/.libs/*.dll ./mdbtools-build-win-${{matrix.sys}}/
+          # cp ./mdbtools/src/libmdb/.libs/*.dll ./mdbtools-build-win-${{matrix.sys}}/
+          # mkdir mdbtools-build-win-${{matrix.sys}}/static
+          cp ./mdbtools/src/util/*.exe mdbtools-build-win-${{matrix.sys}}/
 
-          cp C:/msys64/${{matrix.sys}}/bin/libgcc*.dll ./mdbtools-build-win-${{matrix.sys}}/
-          cp C:/msys64/${{matrix.sys}}/bin/libwinpthread*.dll ./mdbtools-build-win-${{matrix.sys}}/
+          # cp C:/msys64/${{matrix.sys}}/bin/libgcc*.dll ./mdbtools-build-win-${{matrix.sys}}/
+          # cp C:/msys64/${{matrix.sys}}/bin/libwinpthread*.dll ./mdbtools-build-win-${{matrix.sys}}/
 
           ls ./mdbtools-build-win-${{matrix.sys}}/
 
