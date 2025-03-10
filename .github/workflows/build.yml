@@ -36,6 +36,7 @@ jobs:
             automake
             libtool
             base-devel
+            glib2-devel
           pacboy: >-
             pkg-config:p
             gcc:p
@@ -53,7 +54,7 @@ jobs:
 
       - name: Configure
         shell: msys2 {0}
-        run: cd mdbtools && ./configure --disable-glib
+        run: cd mdbtools && ./configure
 
       - name: Make
         shell: msys2 {0}
