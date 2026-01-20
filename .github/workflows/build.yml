@@ -18,11 +18,11 @@ jobs:
       - name: Clone Mdbtools
         run: |
           git clone https://github.com/mdbtools/mdbtools.git
-          git checkout v1.0.1
 
       - name: Patch
         run: |
           cd mdbtools
+          git checkout v1.0.1
           git apply ../patch_file.patch
           git apply ../patch_configure.patch
 
