@@ -17,7 +17,8 @@ jobs:
 
       - name: Clone Mdbtools
         run: |
-          git clone --depth=1 https://github.com/mdbtools/mdbtools.git
+          git clone https://github.com/mdbtools/mdbtools.git
+          git checkout v1.0.1
 
       - name: Patch
         run: |
