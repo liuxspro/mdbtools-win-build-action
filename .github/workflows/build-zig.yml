@@ -1,0 +1,92 @@
+name: Build Zig
+
+# Cross-compile mdbtools for Windows on a Linux runner using the Zig build
+# system. Compared with build.yml this needs no MSYS2 and no autotools:
+# build.zig compiles libmdb (with the bundled fakeglib shim) plus the command
+# line utilities, and generates the headers that configure would normally emit.
+#
+# The mdbtools sources and build.zig end up side by side:
+#   mdbtools/build.zig  (copied from this repo)
+
+on:
+  workflow_dispatch:
+    inputs:
+      zig-version:
+        description: Zig version (a release such as 0.17.0, or master)
+        required: false
+        default: "0.17.0"
+        type: string
+      mdbtools-ref:
+        description: mdbtools tag, branch or commit
+        required: false
+        default: v1.0.1
+        type: string
+      build-sql:
+        description: Also build the SQL engine (libmdbsql + mdb-sql) with bison/flex
+        required: false
+        default: false
+        type: boolean
+
+env:
+  TARGET: x86_64-windows-gnu
+
+jobs:
+  build-mdbtools-win-zig:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Zig
+        uses: mlugg/setup-zig@v2
+        with:
+          version: ${{ inputs.zig-version }}
+
+      - name: Clone mdbtools
+        run: |
+          git clone https://github.com/mdbtools/mdbtools.git
+          cd mdbtools
+          git checkout "${{ inputs.mdbtools-ref }}"
+          # build.zig is maintained in this repo, not upstream.
+          cp ../build.zig .
+
+      - name: Patch
+        working-directory: mdbtools
+        run: |
+          # Use "..." instead of the U+2026 ellipsis in fakeglib's --help output
+          # so it is readable in the Windows console. patch_configure.patch only
+          # touches configure.ac, which build.zig does not use.
+          git apply ../patch_file.patch ||
+            echo "::warning::patch_file.patch did not apply, continuing"
+
+      - name: Generate SQL parser
+        if: inputs.build-sql
+        working-directory: mdbtools/src/sql
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y --no-install-recommends bison flex
+          bison -d -o parser.c parser.y
+          flex -o lexer.c lexer.l
+
+      - name: Build
+        working-directory: mdbtools
+        run: |
+          zig build \
+            -Doptimize=ReleaseFast \
+            -Dtarget="$TARGET" \
+            -Dsql=${{ inputs.build-sql && 'true' || 'false' }} \
+            --prefix zig-out-windows
+
+      - name: Organize files
+        run: |
+          mkdir -p mdbtools-build-win-zig-x86_64
+          cp mdbtools/COPYING* mdbtools-build-win-zig-x86_64/
+          cp mdbtools/zig-out-windows/bin/*.exe mdbtools-build-win-zig-x86_64/
+          ls -l mdbtools-build-win-zig-x86_64/
+
+      - name: Upload a Build Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: mdbtools-build-win-zig-x86_64
+          path: mdbtools-build-win-zig-x86_64/
