@@ -80,13 +80,13 @@ jobs:
 
       - name: Organize files
         run: |
-          mkdir -p mdbtools-build-win-zig-x86_64
-          cp mdbtools/COPYING* mdbtools-build-win-zig-x86_64/
-          cp mdbtools/zig-out-windows/bin/*.exe mdbtools-build-win-zig-x86_64/
-          ls -l mdbtools-build-win-zig-x86_64/
+          mkdir -p mdbtools-build-win-x86_64
+          cp mdbtools/COPYING* mdbtools-build-win-x86_64/
+          cp mdbtools/zig-out-windows/bin/*.exe mdbtools-build-win-x86_64/
+          ls -l mdbtools-build-win-x86_64/
 
       - name: Upload a Build Artifact
         uses: actions/upload-artifact@v4
         with:
-          name: mdbtools-build-win-zig-x86_64
-          path: mdbtools-build-win-zig-x86_64/
+          name: mdbtools-build-win-x86_64
+          path: mdbtools-build-win-x86_64/
