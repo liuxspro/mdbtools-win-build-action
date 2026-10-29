@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<assembly xmlns="urn:schemas-microsoft-com:asm.v1" manifestVersion="1.0">
+  <!-- mdbtools treats table/column names as UTF-8, so the C runtime must hand
+       the utilities UTF-8 argv.  Declaring the process code page as UTF-8
+       stops the CRT from converting the command line to the ANSI code page
+       (e.g. CP936, where "Umsätze" loses the "ä").  Requires Windows 10 1903+. -->
+  <assemblyIdentity type="win32" name="mdbtools.utilities" version="1.0.1.0"/>
+  <application xmlns="urn:schemas-microsoft-com:asm.v3">
+    <windowsSettings>
+      <activeCodePage xmlns="http://schemas.microsoft.com/SMI/2019/WindowsSettings">UTF-8</activeCodePage>
+    </windowsSettings>
+  </application>
+</assembly>

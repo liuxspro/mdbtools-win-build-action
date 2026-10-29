@@ -8,7 +8,9 @@
 //   zig build                          # build everything into zig-out/
 //   zig build -Doptimize=ReleaseFast
 //   zig build -Dtarget=aarch64-linux-musl
-//   zig build -Dtarget=x86_64-windows-gnu   # PE32+ console executables
+//   zig build -Dtarget=x86_64-windows-gnu   # PE32+ console executables,
+//                                          # with mdbtools-win32.manifest
+//                                          # embedded (ACP becomes UTF-8)
 //   zig build -Dglib=true              # use system GLib via pkg-config
 //   zig build -Dsql=true               # also build libmdbsql + mdb-sql
 //                                      # (mdb-sql falls back to its own
@@ -25,6 +27,13 @@
 const std = @import("std");
 
 const version = "1.0.1";
+
+// Windows converts the UTF-16 command line to the narrow argv handed to main()
+// using the process ANSI code page, so a name like "Umsätze" would be mangled on
+// e.g. CP936 systems. Embedding a manifest that declares activeCodePage = UTF-8
+// turns the ACP into 65001 before the CRT runs, so argv arrives as UTF-8 bytes
+// (which is what mdbtools expects). Requires Windows 10 1903 or newer.
+const windows_manifest = "mdbtools-win32.manifest";
 
 const libmdb_sources = [_][]const u8{
     "src/libmdb/backend.c",
@@ -242,7 +251,11 @@ fn makeUtil(
         .flags = cflags,
     });
     mod.linkLibrary(libmdb);
-    return b.addExecutable(.{ .name = name, .root_module = mod });
+    return b.addExecutable(.{
+        .name = name,
+        .root_module = mod,
+        .win32_manifest = if (target.result.os.tag == .windows) b.path(windows_manifest) else null,
+    });
 }
 
 const Replacement = struct { from: []const u8, to: []const u8 };

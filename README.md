@@ -25,6 +25,11 @@ fakeglib shim and generates the headers that `configure` would normally emit. li
 statically, so the artifact (`mdbtools-build-win-x86_64`) contains only the `.exe` files and
 `COPYING`, with no extra DLLs to ship.
 
+Each `.exe` has [`mdbtools-win32.manifest`](mdbtools-win32.manifest) embedded, which declares
+`activeCodePage = UTF-8`. Without it the CRT converts the UTF-16 command line to the ANSI code
+page (e.g. CP936), so non-ASCII table/column names reach `main()` mangled; with it the process
+ACP is 65001 and `argv` is UTF-8, matching what mdbtools expects. Requires Windows 10 1903+.
+
 Workflow inputs (`workflow_dispatch`):
 
 | Input          | Default  | Description                                              |

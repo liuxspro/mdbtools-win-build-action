@@ -5,8 +5,10 @@ name: Build Zig
 # build.zig compiles libmdb (with the bundled fakeglib shim) plus the command
 # line utilities, and generates the headers that configure would normally emit.
 #
-# The mdbtools sources and build.zig end up side by side:
+# The mdbtools sources plus build.zig and its Windows manifest end up side by
+# side:
 #   mdbtools/build.zig  (copied from this repo)
+#   mdbtools/mdbtools-win32.manifest  (copied from this repo)
 
 on:
   workflow_dispatch:
@@ -64,7 +66,7 @@ jobs:
         uses: actions/cache@v4
         with:
           path: .zig-cache
-          key: zig-local-${{ runner.os }}-${{ inputs.zig-version }}-${{ env.TARGET }}-${{ inputs.mdbtools-ref }}-${{ inputs.build-sql && 'sql' || 'nosql' }}-${{ hashFiles('build.zig', 'patch_file.patch') }}
+          key: zig-local-${{ runner.os }}-${{ inputs.zig-version }}-${{ env.TARGET }}-${{ inputs.mdbtools-ref }}-${{ inputs.build-sql && 'sql' || 'nosql' }}-${{ hashFiles('build.zig', 'mdbtools-win32.manifest', 'patch_file.patch') }}
           restore-keys: |
             zig-local-${{ runner.os }}-${{ inputs.zig-version }}-${{ env.TARGET }}-${{ inputs.mdbtools-ref }}-${{ inputs.build-sql && 'sql' || 'nosql' }}-
             zig-local-${{ runner.os }}-${{ inputs.zig-version }}-${{ env.TARGET }}-
@@ -74,8 +76,9 @@ jobs:
           git clone https://github.com/mdbtools/mdbtools.git
           cd mdbtools
           git checkout "${{ inputs.mdbtools-ref }}"
-          # build.zig is maintained in this repo, not upstream.
-          cp ../build.zig .
+          # build.zig is maintained in this repo, not upstream. The manifest
+          # sits next to it because build.zig embeds it into every .exe.
+          cp ../build.zig ../mdbtools-win32.manifest .
 
       - name: Patch
         working-directory: mdbtools
