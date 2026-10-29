@@ -43,6 +43,32 @@ jobs:
         with:
           version: ${{ inputs.zig-version }}
 
+      # Zig's global cache holds compiler_rt, hwcap tables and the mingw-w64
+      # / glibc stubs Zig synthesises for cross-compilation. It is keyed by
+      # Zig version, so a stable key with a manual -vN suffix is enough:
+      # cache entries are immutable, bump the suffix to force a refresh.
+      - name: Cache Zig global cache
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/zig
+          key: zig-global-${{ runner.os }}-${{ inputs.zig-version }}-${{ env.TARGET }}-v1
+          restore-keys: |
+            zig-global-${{ runner.os }}-${{ inputs.zig-version }}-${{ env.TARGET }}-
+            zig-global-${{ runner.os }}-${{ inputs.zig-version }}-
+
+      # Zig's local cache is content-addressed (file hash + flags + target), so
+      # entries from another ref are still valid and simply get ignored when
+      # they do not match. Restoring a slightly older key therefore only costs
+      # a partial rebuild, never correctness.
+      - name: Cache Zig local cache
+        uses: actions/cache@v4
+        with:
+          path: .zig-cache
+          key: zig-local-${{ runner.os }}-${{ inputs.zig-version }}-${{ env.TARGET }}-${{ inputs.mdbtools-ref }}-${{ inputs.build-sql && 'sql' || 'nosql' }}-${{ hashFiles('build.zig', 'patch_file.patch') }}
+          restore-keys: |
+            zig-local-${{ runner.os }}-${{ inputs.zig-version }}-${{ env.TARGET }}-${{ inputs.mdbtools-ref }}-${{ inputs.build-sql && 'sql' || 'nosql' }}-
+            zig-local-${{ runner.os }}-${{ inputs.zig-version }}-${{ env.TARGET }}-
+
       - name: Clone mdbtools
         run: |
           git clone https://github.com/mdbtools/mdbtools.git
@@ -72,7 +98,10 @@ jobs:
       - name: Build
         working-directory: mdbtools
         run: |
+          # Keep the build cache outside mdbtools/ so it matches the cached path
+          # and survives the fresh clone on every run.
           zig build \
+            --cache-dir "$GITHUB_WORKSPACE/.zig-cache" \
             -Doptimize=ReleaseFast \
             -Dtarget="$TARGET" \
             -Dsql=${{ inputs.build-sql && 'true' || 'false' }} \
