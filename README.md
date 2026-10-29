@@ -40,10 +40,22 @@ Workflow inputs (`workflow_dispatch`):
 
 ## Test
 
-TODO
+The workflow has a second job, `test-mdbtools-win-zig`, that runs upstream's
+[`test_script.sh`](test_script.sh) against the freshly built binaries on `windows-latest`.
+It drives the utilities over the [mdbtestdata](https://github.com/mdbtools/mdbtestdata)
+databases, including the non-ASCII `Umsätze` table — which only round-trips because of the
+embedded UTF-8 manifest.
+
+The job only needs the layout the script expects — `.exe` files in `src/util/` and the
+databases in `test/data/` — so no mdbtools sources are cloned. To reproduce locally on
+Windows (Git Bash):
 
 ```bash
-git clone https://github.com/mdbtools/mdbtestdata.git test
+mkdir -p src/util
+git clone --depth 1 https://github.com/mdbtools/mdbtestdata.git test
+cp path/to/zig-out-windows/bin/*.exe src/util/
+cp path/to/test_script.sh .
+bash test_script.sh -g
 ```
 
 ## History

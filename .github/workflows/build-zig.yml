@@ -122,3 +122,42 @@ jobs:
         with:
           name: mdbtools-build-win-x86_64
           path: mdbtools-build-win-x86_64/
+
+  # Runs upstream's test_script.sh against the binaries we just built. It has to
+  # run on Windows: the utilities are native PE executables, and "Umsätze" is
+  # only passed through intact because of the embedded UTF-8 manifest.
+  #
+  # test_script.sh only cares about the layout of the directory it runs in:
+  # "./src/util/<tool>" plus the databases under "./test/data". No mdbtools
+  # sources are needed, so the tree is just staged from the artifact.
+  test-mdbtools-win-zig:
+    needs: build-mdbtools-win-zig
+    runs-on: windows-latest
+    timeout-minutes: 15
+    defaults:
+      run:
+        # GitHub's "bash" on Windows is Git Bash; it resolves
+        # "./src/util/mdb-json" to "mdb-json.exe", which test_script.sh relies on.
+        shell: bash
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Download a Build Artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: mdbtools-build-win-x86_64
+          path: mdbtools-build-win-x86_64
+
+      - name: Run the test suite
+        run: |
+          mkdir -p test-tree/src/util
+          cp mdbtools-build-win-x86_64/*.exe test-tree/src/util/
+          git clone --depth 1 https://github.com/mdbtools/mdbtestdata.git test-tree/test
+          # This repo's copy, pinned alongside build.zig.
+          cp test_script.sh test-tree/
+          # Git checks the script out with CRLF on Windows (core.autocrlf), which
+          # turns every command and argument into garbage.
+          sed -i 's/\r$//' test-tree/test_script.sh
+          cd test-tree
+          bash test_script.sh --github
